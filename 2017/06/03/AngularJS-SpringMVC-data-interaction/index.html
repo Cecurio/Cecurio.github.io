@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Ajax,AngularJS,SpringMVC," />
 
 
 
@@ -94,14 +94,15 @@
 
 
 <meta name="description" content="前端AngularJS的POST请求,后端SpringMVC接收数据的小坑使用AngularJS的$http进行POST请求,默认的Content-type为application/json; charset=UTF-8 为了让SpringMVC的Controller能够接收到数据,进行POST请求时的Content-type应修改为application/x-www-form-urlencode">
+<meta name="keywords" content="Ajax,AngularJS,SpringMVC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AngularJS_SpringMVC_data_interaction">
+<meta property="og:title" content="AngularJS对SpringMVC的路由发起请求，进行数据交互">
 <meta property="og:url" content="http://yoursite.com/2017/06/03/AngularJS-SpringMVC-data-interaction/index.html">
 <meta property="og:site_name" content="单凯的个人博客">
 <meta property="og:description" content="前端AngularJS的POST请求,后端SpringMVC接收数据的小坑使用AngularJS的$http进行POST请求,默认的Content-type为application/json; charset=UTF-8 为了让SpringMVC的Controller能够接收到数据,进行POST请求时的Content-type应修改为application/x-www-form-urlencode">
-<meta property="og:updated_time" content="2017-06-02T20:10:04.142Z">
+<meta property="og:updated_time" content="2017-09-02T15:30:42.325Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AngularJS_SpringMVC_data_interaction">
+<meta name="twitter:title" content="AngularJS对SpringMVC的路由发起请求，进行数据交互">
 <meta name="twitter:description" content="前端AngularJS的POST请求,后端SpringMVC接收数据的小坑使用AngularJS的$http进行POST请求,默认的Content-type为application/json; charset=UTF-8 为了让SpringMVC的Controller能够接收到数据,进行POST请求时的Content-type应修改为application/x-www-form-urlencode">
 
 
@@ -136,7 +137,7 @@
 
 
 
-  <title>AngularJS_SpringMVC_data_interaction | 单凯的个人博客</title>
+  <title>AngularJS对SpringMVC的路由发起请求，进行数据交互 | 单凯的个人博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -178,7 +179,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">半瓶子程序员</p>
+        <p class="site-subtitle">I'm nobody!</p>
       
   </div>
 
@@ -283,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">AngularJS_SpringMVC_data_interaction</h1>
+          <h1 class="post-title" itemprop="name headline">AngularJS对SpringMVC的路由发起请求，进行数据交互</h1>
         
 
         <div class="post-meta">
@@ -305,6 +306,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ajax/" itemprop="url" rel="index">
+                    <span itemprop="name">Ajax</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -354,7 +377,7 @@
       
         
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>Just try!</div>
+    <div>If you think the content is useful to you.</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
       <span>赏</span>
     </button>
@@ -387,6 +410,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Ajax/" rel="tag"># Ajax</a>
+          
+            <a href="/tags/AngularJS/" rel="tag"># AngularJS</a>
+          
+            <a href="/tags/SpringMVC/" rel="tag"># SpringMVC</a>
+          
+        </div>
+      
 
       
       
@@ -406,8 +439,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/03/web-xml-classpath/" rel="prev" title="web_xml_classpath">
-                web_xml_classpath <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/03/javaweb项目中的classpath/" rel="prev" title="javaweb项目中的classpath">
+                javaweb项目中的classpath <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -472,7 +505,7 @@
                alt="单凯" />
           <p class="site-author-name" itemprop="name">单凯</p>
            
-              <p class="site-description motion-element" itemprop="description">Talk is ...,so show me the clean code!</p>
+              <p class="site-description motion-element" itemprop="description">He wants himself to be more than just a programmer.</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -480,14 +513,32 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -507,7 +558,7 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://weibo.com/p/1005055649373724/home" target="_blank" title="Weibo">
+                <a href="http://weibo.com/cecurio" target="_blank" title="Weibo">
                   
                     <i class="fa fa-fw fa-weibo"></i>
                   
