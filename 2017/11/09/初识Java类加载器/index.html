@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/11/09/初识Java类加载器/index.html">
 <meta property="og:site_name" content="单凯的个人博客">
 <meta property="og:description" content="初步理解Java类加载机制">
-<meta property="og:updated_time" content="2017-11-09T06:49:39.347Z">
+<meta property="og:updated_time" content="2017-11-09T09:41:43.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java类加载器（一）">
 <meta name="twitter:description" content="初步理解Java类加载机制">
@@ -372,7 +372,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sun.misc.Launcher$AppClassLoader@232204a1</div><div class="line">sun.misc.Launcher$ExtClassLoader@74a14482</div><div class="line">null</div></pre></td></tr></table></figure>
 <p>下面的代码纯属演示，没有实际意义</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Member &#123;</div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Member&#123;&#125;&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">public class TestDemo &#123;</div><div class="line">    public static void main(String[] args) throws Exception&#123;</div><div class="line">        System.out.println(Class.forName(&quot;cn.cecurio.load.Member&quot;).</div><div class="line">            getClassLoader().loadClass(&quot;cn.cecurio.load.Member&quot;).newInstance());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="自定义类加载器，加载本机文件"><a href="#自定义类加载器，加载本机文件" class="headerlink" title="自定义类加载器，加载本机文件"></a>自定义类加载器，加载本机文件</h2><h3 id="第一步：-在本机非项目CLASSPATH位置新建-java文件，并编译"><a href="#第一步：-在本机非项目CLASSPATH位置新建-java文件，并编译" class="headerlink" title="第一步： 在本机非项目CLASSPATH位置新建.java文件，并编译"></a>第一步： 在本机非项目CLASSPATH位置新建.java文件，并编译</h3><p>名称是Member.java，内容如下：</p>
+<h2 id="自定义类加载器，加载本机文件"><a href="#自定义类加载器，加载本机文件" class="headerlink" title="自定义类加载器，加载本机文件"></a>自定义类加载器，加载本机文件</h2><blockquote>
+<p>自定义的ClassLoader都必须继承自java.lang.ClassLoader类。<code>Extension ClassLoader</code>和<code>App ClassLoader</code>都继承java.lang.ClassLoader类。但是<code>Bootstrap ClassLoader</code>不继承自<code>java.lang.ClassLoader</code>，因为它不是一个普通的Java类，底层由C++编写，已嵌入到了JVM内核当中，当JVM启动后，<code>Bootstrap ClassLoader</code>也随着启动，负责加载完核心类库后，并构造<code>Extension ClassLoader</code>和<code>App ClassLoader</code>类加载器。</p>
+</blockquote>
+<h3 id="第一步：-在本机非项目CLASSPATH位置新建-java文件，并编译"><a href="#第一步：-在本机非项目CLASSPATH位置新建-java文件，并编译" class="headerlink" title="第一步： 在本机非项目CLASSPATH位置新建.java文件，并编译"></a>第一步： 在本机非项目CLASSPATH位置新建.java文件，并编译</h3><p>名称是Member.java，内容如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">package cn.cecurio.vo;</div><div class="line"></div><div class="line">public class Member &#123;</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Member in cn.cecurio.vo&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="第二步：-定义自己的类加载器"><a href="#第二步：-定义自己的类加载器" class="headerlink" title="第二步： 定义自己的类加载器"></a>第二步： 定义自己的类加载器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">public class MyClassLoader extends ClassLoader &#123;</div><div class="line">    /**</div><div class="line">     * 实现一个自定义的类加载器，传入类的全限定名，通过读取指定文件来加载类</div><div class="line">     * @param className</div><div class="line">     * @return 类的Class对象</div><div class="line">     */</div><div class="line">    public Class&lt;?&gt; loadData(String className) &#123;</div><div class="line">        // 加载类文件的数据信息</div><div class="line">        byte[] classData = this.loadClassData();</div><div class="line">        return super.defineClass(className,classData,0,classData.length);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 通过指定类的文件路径，进行类的加载，其实就是读取二进制文件</div><div class="line">     * @return 类文件的数据信息</div><div class="line">     */</div><div class="line">    private byte[] loadClassData() &#123;</div><div class="line">        try &#123;</div><div class="line">            File inFile = new File(&quot;D:&quot; + File.separator + &quot;tmp&quot;</div><div class="line">                + File.separator + &quot;Member.class&quot;);</div><div class="line">            InputStream inputStream = new FileInputStream(inFile);</div><div class="line"></div><div class="line">            // 可以有一个方法取得所有的字节内容</div><div class="line">            ByteArrayOutputStream bos = new ByteArrayOutputStream();</div><div class="line">            // 定义读取的缓冲区</div><div class="line">            byte[] data = new byte[512];</div><div class="line">            int len = 0;</div><div class="line">            while ((len = inputStream.read(data)) != -1) &#123;</div><div class="line">                bos.write(data,0,len);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            byte[] ret = bos.toByteArray();</div><div class="line">            inputStream.close();</div><div class="line">            bos.close();</div><div class="line">            return ret;</div><div class="line">        &#125; catch (FileNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            return null;</div><div class="line">        &#125; catch (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            return null;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>可以自己修改上述代码中，文件路径硬编码的地方</p>
@@ -453,6 +456,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/11/09/ClassLoader加载器原理/" rel="prev" title="Java类加载器（二）">
+                Java类加载器（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -523,7 +530,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -534,7 +541,7 @@
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -545,7 +552,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
