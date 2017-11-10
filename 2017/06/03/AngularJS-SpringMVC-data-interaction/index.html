@@ -332,6 +332,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/03/AngularJS-SpringMVC-data-interaction/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/03/AngularJS-SpringMVC-data-interaction/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -470,6 +481,16 @@
 
           
   <div class="comments" id="comments">
+    
+		<div style="text-align:center;">
+			<button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+		</div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -730,16 +751,32 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://cecurio.disqus.com/count.js" async></script>
+    
 
-
-
-
-
-
-
-
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/06/03/AngularJS-SpringMVC-data-interaction/';
+          this.page.identifier = '2017/06/03/AngularJS-SpringMVC-data-interaction/';
+          this.page.title = 'AngularJS对SpringMVC的路由发起请求，进行数据交互';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cecurio.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
 
   
+
+
+
+
+
+
+
 
 
 
