@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/11/09/初识Java类加载器/index.html">
 <meta property="og:site_name" content="单凯的个人博客">
 <meta property="og:description" content="初步理解Java类加载机制">
-<meta property="og:updated_time" content="2017-11-09T09:41:43.142Z">
+<meta property="og:updated_time" content="2017-11-09T13:29:26.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java类加载器（一）">
 <meta name="twitter:description" content="初步理解Java类加载机制">
@@ -370,7 +370,7 @@
 <h2 id="获取某个类由哪个类加载器加载"><a href="#获取某个类由哪个类加载器加载" class="headerlink" title="获取某个类由哪个类加载器加载"></a>获取某个类由哪个类加载器加载</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Member &#123;&#125;</div><div class="line">public class TestDemo &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Class&lt;?&gt; cls = Member.class;</div><div class="line">        System.out.println(cls.getClassLoader());</div><div class="line">        System.out.println(cls.getClassLoader().getParent());</div><div class="line">        System.out.println(cls.getClassLoader().getParent().getParent());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面代码的运行结果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sun.misc.Launcher$AppClassLoader@232204a1</div><div class="line">sun.misc.Launcher$ExtClassLoader@74a14482</div><div class="line">null</div></pre></td></tr></table></figure>
-<p>下面的代码纯属演示，没有实际意义</p>
+<p>下面的代码纯属演示，演示loadClass(String className)方法，没有实际意义</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Member &#123;</div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Member&#123;&#125;&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">public class TestDemo &#123;</div><div class="line">    public static void main(String[] args) throws Exception&#123;</div><div class="line">        System.out.println(Class.forName(&quot;cn.cecurio.load.Member&quot;).</div><div class="line">            getClassLoader().loadClass(&quot;cn.cecurio.load.Member&quot;).newInstance());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="自定义类加载器，加载本机文件"><a href="#自定义类加载器，加载本机文件" class="headerlink" title="自定义类加载器，加载本机文件"></a>自定义类加载器，加载本机文件</h2><blockquote>
 <p>自定义的ClassLoader都必须继承自java.lang.ClassLoader类。<code>Extension ClassLoader</code>和<code>App ClassLoader</code>都继承java.lang.ClassLoader类。但是<code>Bootstrap ClassLoader</code>不继承自<code>java.lang.ClassLoader</code>，因为它不是一个普通的Java类，底层由C++编写，已嵌入到了JVM内核当中，当JVM启动后，<code>Bootstrap ClassLoader</code>也随着启动，负责加载完核心类库后，并构造<code>Extension ClassLoader</code>和<code>App ClassLoader</code>类加载器。</p>
@@ -746,19 +746,7 @@
 
 
 
-	
 
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
