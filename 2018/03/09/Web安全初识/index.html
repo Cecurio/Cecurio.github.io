@@ -1,0 +1,845 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Web安全," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="之前参加过信息安全铁人三项赛和全国大学生Web安全测试，现在总结下知识点和收获。">
+<meta name="keywords" content="Web安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web安全初识">
+<meta property="og:url" content="http://yoursite.com/2018/03/09/Web安全初识/index.html">
+<meta property="og:site_name" content="Cecurio">
+<meta property="og:description" content="之前参加过信息安全铁人三项赛和全国大学生Web安全测试，现在总结下知识点和收获。">
+<meta property="og:updated_time" content="2018-03-09T14:02:32.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web安全初识">
+<meta name="twitter:description" content="之前参加过信息安全铁人三项赛和全国大学生Web安全测试，现在总结下知识点和收获。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/09/Web安全初识/"/>
+
+
+
+
+
+  <title>Web安全初识 | Cecurio</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cecurio</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Don't be defeated by possible failure.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/09/Web安全初识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="单凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cecurio">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web安全初识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T22:01:17+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/09/Web安全初识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/09/Web安全初识/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前参加过信息安全铁人三项赛和全国大学生Web安全测试，现在总结下知识点和收获。</p>
+<a id="more"></a>
+<h2 id="常见的分类"><a href="#常见的分类" class="headerlink" title="常见的分类"></a>常见的分类</h2><p>常见的web漏洞,诸如SQL注入、XSS、文件包含、代码执行、上传等漏洞</p>
+<p>密码学：包括古典加密技术、现代加密技术</p>
+<p>MISC安全杂项：流量包分析</p>
+<p>隐写术： 图片隐写</p>
+<h2 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h2><p>Burpsuite，HTTP抓包，截包，伪装用的</p>
+<p>firefox_firebug</p>
+<p>firefox_modifyheaders，修改HTTP头用的</p>
+<p>御剑，主要用来对Web系统的后台进行扫描，他自带一些对PHP、ASP、JSP等项目的后台目录进行扫描的字典（其实就是系统后台文件可能有哪些路径，把可能情况都列举出来，放在一个文件里，然后逐个尝试进行HTTP请求）</p>
+<p>Sqlmap，sql暴力破解用的</p>
+<p>中国菜刀，找出后台敏感文件用的，能获取后台的文件目录</p>
+<h2 id="CTF中的web安全方面"><a href="#CTF中的web安全方面" class="headerlink" title="CTF中的web安全方面"></a>CTF中的web安全方面</h2><h3 id="1-直接查看源码"><a href="#1-直接查看源码" class="headerlink" title="1. 直接查看源码"></a>1. 直接查看源码</h3><p>程序员可能把信息写在注释里，这是最简单的。</p>
+<h3 id="2-查看、修改或者添加HTTP请求头响应头"><a href="#2-查看、修改或者添加HTTP请求头响应头" class="headerlink" title="2. 查看、修改或者添加HTTP请求头响应头"></a>2. 查看、修改或者添加HTTP请求头响应头</h3><p>需要对HTTP协议的请求头、响应头的字段有了解；如何截包修改并发送；还有HTTP状态码</p>
+<h3 id="3-302跳转的中转网页有信息"><a href="#3-302跳转的中转网页有信息" class="headerlink" title="3. 302跳转的中转网页有信息"></a>3. 302跳转的中转网页有信息</h3><p>也需要截包工具，我用的是burpsuite</p>
+<h3 id="4-查看开发者工具的控制台"><a href="#4-查看开发者工具的控制台" class="headerlink" title="4. 查看开发者工具的控制台"></a>4. 查看开发者工具的控制台</h3><p>开发者工具控制台对从事Web方面的工作的人很重要</p>
+<h3 id="5-javascript代码，包括js加解密"><a href="#5-javascript代码，包括js加解密" class="headerlink" title="5. javascript代码，包括js加解密"></a>5. javascript代码，包括js加解密</h3><h3 id="6-使用burpsuite拦截"><a href="#6-使用burpsuite拦截" class="headerlink" title="6. 使用burpsuite拦截"></a>6. 使用burpsuite拦截</h3><h3 id="7-robots-txt"><a href="#7-robots-txt" class="headerlink" title="7. robots.txt"></a>7. robots.txt</h3><p>什么是robots.txt？为了不让搜索引擎索引网站的后台页面或其它隐私页面，我们将这些路径在robots.txt文件中禁用了。但矛盾的是，robots.txt文件任何人都可以访问，包括黑客。为了防搜索引擎，我们把隐私泄露给了黑客。</p>
+<p>robots.txt干什么的？robots.txt基本上每个网站都用，而且放到了网站的根目录下，任何人都可以直接输入路径打开并查看里面的内容，如：<a href="http://www.baidu.com/robots.txt。" target="_blank" rel="external">http://www.baidu.com/robots.txt。</a> 该文件用于告诉搜索引擎，哪些页面可以去抓取，哪些页面不要抓取。一般而言，搜索引擎都会遵循这个规律。</p>
+<p>robots.txt如何使用？在网站根目录下创建一个文件，取名robots.txt，文件名必须是这个！然后设置里面的规则。比如我有一个OA办公系统，我要设置不允许任何搜索引擎收录本站。robots.txt中就设置如下两行即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">User-agent: *</div><div class="line">Disallow: /</div></pre></td></tr></table></figure>
+<p>如果要限制不让搜索引擎访问我们后台admin目录，则规则改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">User-agent: *</div><div class="line">Disallow: /admin/</div></pre></td></tr></table></figure></p>
+<p>robots.txt如何防黑客？像上面的例子中，我们为了让搜索引擎不要收录admin页面而在robots.txt里面做了限制规则。但是这个robots.txt页面，谁都可以看，于是黑客就可以比较清楚的了解网站的结构，比如admin目录啊、include目录啊等等。</p>
+<p>有没有办法既可以使用robots.txt的屏蔽搜索引擎访问的功能，又不泄露后台地址和隐私目录的办法呢？有，那就是使用星号 <code>*</code> 作为通配符。举例如下：</p>
+<p>复制代码代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">User-agent: </div><div class="line">Disallow: /a*/</div></pre></td></tr></table></figure></p>
+<p>这个设置，禁止所有的搜索引擎索引根目录下a开头的目录。当然如果你后台的目录是admin，还是有可以被人猜到，但如果你再把admin改为admmm呢？还有会谁能知道？总结下，为了不让搜索引擎索引网站的后台目录或其它隐私目录，我们将这些路径在robots.txt文件中禁用了。又为了让robots.txt中的内容不泄露网站的后台和隐私，我们使用星号 <code>*</code> 来修改设置项。最后为了不让黑客猜到真实的路径，我们可以把这些敏感的目录进行非常规的重命名。</p>
+<h3 id="8-PHP、ASP代码审计"><a href="#8-PHP、ASP代码审计" class="headerlink" title="8. PHP、ASP代码审计"></a>8. PHP、ASP代码审计</h3><p>PHP、ASP都是弱类型语言，语言本身比强类型语言不安全。</p>
+<h3 id="9-SQL注入是最大的隐患"><a href="#9-SQL注入是最大的隐患" class="headerlink" title="9. SQL注入是最大的隐患"></a>9. SQL注入是最大的隐患</h3><p>可以使用sqlmap，也可以自己拼凑字符串</p>
+<p>在对MySQL进行注入的时候，经常拼接如下的语句尝试从数据库获取信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"># 查看用户数据库名称</div><div class="line"></div><div class="line">select SCHEMA_NAME from INFORMATION_SCHEMA.SCHEMATA</div><div class="line"></div><div class="line">select group_concat(SCHEMA_NAME) from INFORMATION_SCHEMA.SCHEMATA</div><div class="line"></div><div class="line"># 查询当前数据库表</div><div class="line">select group_concat(TABLE_NAME),group_concat(table_type) </div><div class="line">from INFORMATION_SCHEMA.TABLES where table_schema=(select database())</div><div class="line"></div><div class="line">select TABLE_NAME,table_type from INFORMATION_SCHEMA.TABLES where table_schema=(select database())</div><div class="line"></div><div class="line"># 查询指定表的所有字段</div><div class="line">select column_name,column_type from information_schema.columns where table_name=&apos;ctf_user&apos;</div><div class="line"></div><div class="line">select group_concat(column_name),group_concat(column_type) from information_schema.columns where table_name=</div><div class="line"></div><div class="line"># rollup的使用</div><div class="line">order by column_name with rollup</div></pre></td></tr></table></figure>
+<p>在一些老系统中，文件编码、数据库字符集都可能是gbk，这时候系统可能存在宽字节注入的风险，比如可以这么构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">%bf%5c会形成一个汉字</div><div class="line">login=%bf&apos; or 1=1 -- - &amp;password=123</div></pre></td></tr></table></figure>
+<h3 id="10-简单的脚本使用"><a href="#10-简单的脚本使用" class="headerlink" title="10. 简单的脚本使用"></a>10. 简单的脚本使用</h3><p>基于时间的盲注和基于布尔值的盲注都需要自己写脚本，python脚本或者java脚本</p>
+<h3 id="11-后台登录"><a href="#11-后台登录" class="headerlink" title="11. 后台登录"></a>11. 后台登录</h3><p>包括弱密码（即常见的密码，指的是admin、root等常见密码）</p>
+<h3 id="12-代码逆向"><a href="#12-代码逆向" class="headerlink" title="12. 代码逆向"></a>12. 代码逆向</h3><p>设计的内容较多，我不怎么会。应该和Java的反编译类似吧</p>
+<h3 id="13-上传绕过"><a href="#13-上传绕过" class="headerlink" title="13. 上传绕过"></a>13. 上传绕过</h3><p>譬如双后缀文件上传，“一句话木马”</p>
+<h3 id="14-hash函数"><a href="#14-hash函数" class="headerlink" title="14. hash函数"></a>14. hash函数</h3><p>比如md5、sha1都是hash函数</p>
+<h3 id="15-备份文件"><a href="#15-备份文件" class="headerlink" title="15. 备份文件"></a>15. 备份文件</h3><p>php的备份文件。比如index.php普遍意义上的首页，输入域名不一定会显示。   它的备份文件则为<code>index.php~</code> 或者 <code>index.php.bak</code></p>
+<p>vim的备份文件。比如<code>index.php</code> 在被vim编辑的过程中有<code>.index.php.swp</code>文件生成</p>
+<p>Mac OS系统下的<code>.DS_Store</code></p>
+<p>Tomcat远程部署的war包文件，所以应该把Tomcat webapps目录下的<code>host-manages</code> <code>manages</code>目录删掉，</p>
+<h3 id="16-验证码"><a href="#16-验证码" class="headerlink" title="16.验证码"></a>16.验证码</h3><p>我不太了解</p>
+<h3 id="17-cookie"><a href="#17-cookie" class="headerlink" title="17. cookie"></a>17. cookie</h3><p>包括伪造、修改cookie</p>
+<h3 id="18-MD5碰撞"><a href="#18-MD5碰撞" class="headerlink" title="18. MD5碰撞"></a>18. MD5碰撞</h3><p>碰撞指的是不同的内容进行加密却可能得到相同的加密后结果</p>
+<h2 id="PHP中的语言漏洞"><a href="#PHP中的语言漏洞" class="headerlink" title="PHP中的语言漏洞"></a>PHP中的语言漏洞</h2><p><strong>$_GET 和 $_POST</strong></p>
+<p><a href="http://ctf4.shiyanbar.com/web/false.php?name[]=a&amp;password[]=b" target="_blank" rel="external">http://ctf4.shiyanbar.com/web/false.php?name[]=a&amp;password[]=b</a> 如果 GET 参数中设置 name[]=a，那么 $_GET[‘name’] = [a]，PHP 会把 []=a 当成数组传入， $_GET 会自动对参数调用 urldecode。</p>
+<p><strong>$_POST </strong>同样存在此漏洞，提交的表单数据，user[]=admin，$_POST[‘user’] 得到的是 [‘admin’] 是一个数组。</p>
+<h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p>php://filter是PHP语言中特有的协议流，作用是作为一个“中间流”来处理其他流。</p>
+<p>常用padload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php://filter/read=convert.base64-encode/resource=index.php</div></pre></td></tr></table></figure></p>
+<h3 id="md5"><a href="#md5" class="headerlink" title="md5"></a>md5</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if(isset($_GET[&apos;v1&apos;]) &amp;&amp; isset($_GET[&apos;v2&apos;]) &amp;&amp; isset($_GET[&apos;v3&apos;]))&#123;</div><div class="line">    $v1 = $_GET[&apos;v1&apos;];</div><div class="line">    $v2 = $_GET[&apos;v2&apos;];</div><div class="line">    $v3 = $_GET[&apos;v3&apos;];</div><div class="line">    if($v1 != $v2 &amp;&amp; md5($v1) == md5($v2))&#123;</div><div class="line">        if(!strcmp($v3, $flag))&#123;</div><div class="line">            echo $flag;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这也是一道php代码审计题目，涉及的知识点有</p>
+<ol>
+<li><p>PHP在处理哈希字符串时，会利用”!=”或”==”来对哈希值进行比较，它把每一个以”0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，其哈希值都是以”0E”开头的，那么PHP将会认为他们相同，都是0。参照<a href="https://www.cnblogs.com/Primzahl/p/6018158.html" target="_blank" rel="external">这里</a></p>
+</li>
+<li><p>弱类型匹配和strcmp的数组get漏洞，其中 strcmp（数组，字符串）== 0</p>
+</li>
+</ol>
+<p>可以构造payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.93.190.246:49162/?v1=QNKCDZO&amp;v2=240610708&amp;v3[]=0</div></pre></td></tr></table></figure>
+<h3 id="hash-比较的问题"><a href="#hash-比较的问题" class="headerlink" title="hash 比较的问题"></a>hash 比较的问题</h3><p>0e 开头且后面都是数字会被当作科学计数法，也就是等于 <code>0*10^xxx=0</code>。如果 md5 是以 0e 开头，在做比较的时候，可以用这种方法绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&apos;0e509367213418206700842008763514&apos; == &apos;0e481036490867661113260034900752&apos;</div><div class="line"></div><div class="line">&apos;0e481036490867661113260034900752&apos; == &apos;0&apos;</div><div class="line"></div><div class="line">var_dump(&apos;0&apos; == &apos;0e1abcd&apos;);</div><div class="line"></div><div class="line">var_dump(0 == &apos;0e1abcd&apos;);</div><div class="line"></div><div class="line">var_dump(md5(&apos;240610708&apos;) == md5(&apos;QNKCDZO&apos;));</div><div class="line"></div><div class="line">var_dump(md5(&apos;aabg7XSs&apos;) == md5(&apos;aabC9RqS&apos;));</div><div class="line"></div><div class="line">var_dump(sha1(&apos;aaroZmOk&apos;) == sha1(&apos;aaK1STfY&apos;));</div><div class="line"></div><div class="line">var_dump(sha1(&apos;aaO8zKZF&apos;) == sha1(&apos;aa3OFF9m&apos;));</div></pre></td></tr></table></figure>
+<p>如果要找出 0e 开头的 hash 碰撞，可以用如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$salt = &apos;vunp&apos;;</div><div class="line">$hash = &apos;0e612198634316944013585621061115&apos;;</div><div class="line">for ($i=1; $i&lt;100000000000; $i++) &#123;</div><div class="line">    if (md5($salt . $i) == $hash) &#123;</div><div class="line">        echo $i;</div><div class="line">        break;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">echo &apos;  done&apos;;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>If you think the content is useful to you.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.jpg" alt="单凯 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="单凯 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web安全/" rel="tag"># Web安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/26/Cookie与Session之我见/" rel="next" title="Cookie与Session之我见">
+                <i class="fa fa-chevron-left"></i> Cookie与Session之我见
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="单凯" />
+          <p class="site-author-name" itemprop="name">单凯</p>
+           
+              <p class="site-description motion-element" itemprop="description">He wants himself to be more than just a programmer.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Cecurio" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/cecurio" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的分类"><span class="nav-number">1.</span> <span class="nav-text">常见的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用工具"><span class="nav-number">2.</span> <span class="nav-text">常用工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CTF中的web安全方面"><span class="nav-number">3.</span> <span class="nav-text">CTF中的web安全方面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-直接查看源码"><span class="nav-number">3.1.</span> <span class="nav-text">1. 直接查看源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看、修改或者添加HTTP请求头响应头"><span class="nav-number">3.2.</span> <span class="nav-text">2. 查看、修改或者添加HTTP请求头响应头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-302跳转的中转网页有信息"><span class="nav-number">3.3.</span> <span class="nav-text">3. 302跳转的中转网页有信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-查看开发者工具的控制台"><span class="nav-number">3.4.</span> <span class="nav-text">4. 查看开发者工具的控制台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-javascript代码，包括js加解密"><span class="nav-number">3.5.</span> <span class="nav-text">5. javascript代码，包括js加解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-使用burpsuite拦截"><span class="nav-number">3.6.</span> <span class="nav-text">6. 使用burpsuite拦截</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-robots-txt"><span class="nav-number">3.7.</span> <span class="nav-text">7. robots.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-PHP、ASP代码审计"><span class="nav-number">3.8.</span> <span class="nav-text">8. PHP、ASP代码审计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-SQL注入是最大的隐患"><span class="nav-number">3.9.</span> <span class="nav-text">9. SQL注入是最大的隐患</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-简单的脚本使用"><span class="nav-number">3.10.</span> <span class="nav-text">10. 简单的脚本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-后台登录"><span class="nav-number">3.11.</span> <span class="nav-text">11. 后台登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-代码逆向"><span class="nav-number">3.12.</span> <span class="nav-text">12. 代码逆向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-上传绕过"><span class="nav-number">3.13.</span> <span class="nav-text">13. 上传绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-hash函数"><span class="nav-number">3.14.</span> <span class="nav-text">14. hash函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-备份文件"><span class="nav-number">3.15.</span> <span class="nav-text">15. 备份文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-验证码"><span class="nav-number">3.16.</span> <span class="nav-text">16.验证码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-cookie"><span class="nav-number">3.17.</span> <span class="nav-text">17. cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-MD5碰撞"><span class="nav-number">3.18.</span> <span class="nav-text">18. MD5碰撞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP中的语言漏洞"><span class="nav-number">4.</span> <span class="nav-text">PHP中的语言漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#php-filter"><span class="nav-number">4.1.</span> <span class="nav-text">php://filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#md5"><span class="nav-number">4.2.</span> <span class="nav-text">md5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-比较的问题"><span class="nav-number">4.3.</span> <span class="nav-text">hash 比较的问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">单凯</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://cecurio.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/03/09/Web安全初识/';
+          this.page.identifier = '2018/03/09/Web安全初识/';
+          this.page.title = 'Web安全初识';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cecurio.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
