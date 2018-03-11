@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Java基础," />
 
 
 
@@ -93,16 +93,17 @@
 
 
 
-<meta name="description" content="He wants himself to be more than just a programmer.">
+<meta name="description" content="在数学和计算机科学理论中，一个集的枚举是列出某些 有穷序列集 的 所有 成员的程序，或者是一种特定类型对象的计数。">
+<meta name="keywords" content="Java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA枚举使用">
 <meta property="og:url" content="http://yoursite.com/2018/02/26/JAVA枚举使用/index.html">
 <meta property="og:site_name" content="Cecurio">
-<meta property="og:description" content="He wants himself to be more than just a programmer.">
-<meta property="og:updated_time" content="2018-02-26T10:23:19.328Z">
+<meta property="og:description" content="在数学和计算机科学理论中，一个集的枚举是列出某些 有穷序列集 的 所有 成员的程序，或者是一种特定类型对象的计数。">
+<meta property="og:updated_time" content="2018-03-11T09:42:08.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA枚举使用">
-<meta name="twitter:description" content="He wants himself to be more than just a programmer.">
+<meta name="twitter:description" content="在数学和计算机科学理论中，一个集的枚举是列出某些 有穷序列集 的 所有 成员的程序，或者是一种特定类型对象的计数。">
 
 
 
@@ -346,7 +347,23 @@
       
 
       
-        
+        <p>在数学和计算机科学理论中，一个集的枚举是列出某些 <strong>有穷序列集</strong> 的 <strong>所有</strong> 成员的程序，或者是一种特定类型对象的计数。</p>
+<a id="more"></a>
+<h2 id="多例设计模式"><a href="#多例设计模式" class="headerlink" title="多例设计模式"></a>多例设计模式</h2><p>在介绍枚举之前，先介绍多例设计模式。</p>
+<p>多例设计模式的特点是<strong>构造函数私有化，类内部需要提供若干个实例化对象</strong>。</p>
+<p>这是JDK1.5之前的做法，这样做的目的是：限制本类实例化对象产生的个数。但是，从JDK1.5开始有了枚举，可以使代码更加精简。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 多例设计模式</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Color</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color RED = <span class="keyword">new</span> Color(<span class="string">"RED"</span>);</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color GREEN = <span class="keyword">new</span> Color(<span class="string">"GREEN"</span>);</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color BLUE = <span class="keyword">new</span> Color(<span class="string">"BLUE"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> String title;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Color</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.title = title;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Color <span class="title">getInstance</span><span class="params">(<span class="keyword">int</span> ch)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (ch) &#123;</div><div class="line">            <span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">                <span class="keyword">return</span> RED;</div><div class="line">            <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">                <span class="keyword">return</span> GREEN;</div><div class="line">            <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">                <span class="keyword">return</span> BLUE;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.title;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        System.out.println(Color.getInstance(<span class="number">0</span>).toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">enum</span> Color &#123;</div><div class="line">    RED,GREEN,BLUE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        System.out.println(Color.RED);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其实，枚举就是一种高级的多例设计模式</p>
+<h3 id="获取序号和名字"><a href="#获取序号和名字" class="headerlink" title="获取序号和名字"></a>获取序号和名字</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">enum</span> Color &#123;</div><div class="line">    RED,GREEN,BLUE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        System.out.println(Color.RED.ordinal() + <span class="string">" = "</span> + Color.RED.name());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用values-获取枚举类里实例的数组"><a href="#使用values-获取枚举类里实例的数组" class="headerlink" title="使用values()获取枚举类里实例的数组"></a>使用values()获取枚举类里实例的数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">enum</span> Color &#123;</div><div class="line">    RED,GREEN,BLUE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (Color temp : Color.values()) &#123;</div><div class="line">            System.out.println(temp.ordinal() + <span class="string">" = "</span> + temp.name());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="enum和Enum的区别"><a href="#enum和Enum的区别" class="headerlink" title="enum和Enum的区别"></a>enum和Enum的区别</h3><p>enum是一个关键字，使用enum定义的枚举类本质上就相当于一个类继承了Enum抽象类</p>
+<h2 id="在枚举中定义其他结构"><a href="#在枚举中定义其他结构" class="headerlink" title="在枚举中定义其他结构"></a>在枚举中定义其他结构</h2><h3 id="定义属性"><a href="#定义属性" class="headerlink" title="定义属性"></a>定义属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">enum Color &#123;</div><div class="line">    // 枚举类中如果有很多内容，枚举对象必须写在第一行</div><div class="line">    RED(&quot;红色&quot;),GREEN(&quot;绿色&quot;),BLUE(&quot;蓝色&quot;);</div><div class="line">    private String title;</div><div class="line">    // 构造方法绝对不能使用public修饰符</div><div class="line">    private Color(String title) &#123;</div><div class="line">        this.title = title;</div><div class="line">    &#125;</div><div class="line">    // 重写Object类中toString()方法</div><div class="line">    public String toString() &#123;</div><div class="line">        return this.title;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class TestDemo &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        System.out.println(Color.RED);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">interface IColor &#123;</div><div class="line">    public String getColor();</div><div class="line">&#125;</div><div class="line">enum Color implements IColor &#123;</div><div class="line">    // 枚举类中如果有很多内容，枚举对象必须写在第一行</div><div class="line">    RED(&quot;红色&quot;),GREEN(&quot;绿色&quot;),BLUE(&quot;蓝色&quot;);</div><div class="line">    private String title;</div><div class="line">    // 构造方法绝对不能使用public修饰符</div><div class="line">    private Color(String title) &#123;</div><div class="line">        this.title = title;</div><div class="line">    &#125;</div><div class="line">    // 重写Object类中toString()方法</div><div class="line">    public String toString() &#123;</div><div class="line">        return this.title;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String getColor() &#123;</div><div class="line">        return this.title;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class TestDemo &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        IColor ic = Color.GREEN;</div><div class="line">        System.out.println(ic.getColor());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="实例应用"><a href="#实例应用" class="headerlink" title="实例应用"></a>实例应用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">class Person&#123;</div><div class="line">    private String name;</div><div class="line">    private int age;</div><div class="line">    private Gender gender;</div><div class="line"></div><div class="line">    public Person(String name, int age, Gender gender) &#123;</div><div class="line">        this.name = name;</div><div class="line">        this.age = age;</div><div class="line">        this.gender = gender;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Person&#123;&quot; +</div><div class="line">            &quot;name=&apos;&quot; + name + &apos;\&apos;&apos; +</div><div class="line">            &quot;, age=&quot; + age +</div><div class="line">            &quot;, gender=&quot; + gender +</div><div class="line">            &apos;&#125;&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">enum Gender &#123;</div><div class="line">    MALE(&quot;男&quot;),FEMALE(&quot;女&quot;);</div><div class="line">    private String title;</div><div class="line">    private Gender(String title) &#123;</div><div class="line">        this.title = title;</div><div class="line">    &#125;</div><div class="line">    public String toString() &#123;</div><div class="line">        return title;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class TestDemo &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Person p = new Person(&quot;zhangsan&quot;,22,Gender.MALE);</div><div class="line">        System.out.println(p.toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>switch判断，最初只支持int、char；自从JDK1.5开始，支持枚举；自从JDK1.7开始，支持String</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">enum Gender &#123;</div><div class="line">    MALE, FEMALE;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class TestDemo &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Gender g = Gender.MALE;</div><div class="line">        switch (g) &#123;</div><div class="line">            case FEMALE:</div><div class="line">                System.out.println(&quot;是女人&quot;);</div><div class="line">                break;</div><div class="line">            case MALE:</div><div class="line">                System.out.println(&quot;是男人&quot;);</div><div class="line">                break;</div><div class="line">            default:</div><div class="line">                System.out.println(&quot;不确定&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -393,6 +410,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java基础/" rel="tag"># Java基础</a>
+          
+        </div>
       
 
       
@@ -469,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -507,7 +539,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -552,6 +584,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多例设计模式"><span class="nav-number">1.</span> <span class="nav-text">多例设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举"><span class="nav-number">2.</span> <span class="nav-text">枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用示例"><span class="nav-number">2.1.</span> <span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取序号和名字"><span class="nav-number">2.2.</span> <span class="nav-text">获取序号和名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用values-获取枚举类里实例的数组"><span class="nav-number">2.3.</span> <span class="nav-text">使用values()获取枚举类里实例的数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#enum和Enum的区别"><span class="nav-number">2.4.</span> <span class="nav-text">enum和Enum的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在枚举中定义其他结构"><span class="nav-number">3.</span> <span class="nav-text">在枚举中定义其他结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义属性"><span class="nav-number">3.1.</span> <span class="nav-text">定义属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现接口"><span class="nav-number">3.2.</span> <span class="nav-text">实现接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例应用"><span class="nav-number">4.</span> <span class="nav-text">实例应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
