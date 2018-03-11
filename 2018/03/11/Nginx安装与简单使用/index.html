@@ -1,0 +1,824 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Nginx,服务器," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Nginx 是一个高性能的 Web 和反向代理服务器">
+<meta name="keywords" content="Nginx,服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx安装与简单使用">
+<meta property="og:url" content="http://yoursite.com/2018/03/11/Nginx安装与简单使用/index.html">
+<meta property="og:site_name" content="Cecurio">
+<meta property="og:description" content="Nginx 是一个高性能的 Web 和反向代理服务器">
+<meta property="og:image" content="http://img.blog.csdn.net/20170922011512979?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VjdXJpbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170922011318169?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VjdXJpbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-03-11T12:04:20.917Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx安装与简单使用">
+<meta name="twitter:description" content="Nginx 是一个高性能的 Web 和反向代理服务器">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170922011512979?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VjdXJpbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/11/Nginx安装与简单使用/"/>
+
+
+
+
+
+  <title>Nginx安装与简单使用 | Cecurio</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cecurio</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Don't be defeated by possible failure.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/11/Nginx安装与简单使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="单凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cecurio">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Nginx安装与简单使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-11T19:44:56+08:00">
+                2018-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/11/Nginx安装与简单使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/11/Nginx安装与简单使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>Nginx 是一个高性能的 Web 和反向代理服务器</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><p>Ubuntu 16.04.1</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>网上有很多安装的教程，自己摸索吧</p>
+<p>我是通过 <code>sudo apt-get install nginx</code> 命令安装的</p>
+<p>来吧，这里是安装的 <a href="http://www.nginx.cn/doc/setup/nginx-ubuntu.html" target="_blank" rel="external">官方教程</a></p>
+<h3 id="上述命令执行完，都干了什么？如何找到它的文件在哪呢？"><a href="#上述命令执行完，都干了什么？如何找到它的文件在哪呢？" class="headerlink" title="上述命令执行完，都干了什么？如何找到它的文件在哪呢？"></a>上述命令执行完，都干了什么？如何找到它的文件在哪呢？</h3><p>使用 <code>locate nginx</code> 查看文件位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-90-170-ubuntu:~$ locate nginx</div><div class="line">/etc/nginx</div><div class="line">/etc/default/nginx</div><div class="line">/etc/init/nginx.conf</div><div class="line">/etc/init.d/nginx</div><div class="line">/etc/logrotate.d/nginx</div><div class="line">/etc/nginx/conf.d</div><div class="line">/etc/nginx/fastcgi.conf</div><div class="line">/etc/nginx/fastcgi_params</div><div class="line">/etc/nginx/koi-utf</div><div class="line">/etc/nginx/koi-win</div><div class="line">/etc/nginx/mime.types</div><div class="line">/etc/nginx/nginx.conf</div><div class="line">/etc/nginx/proxy_params</div><div class="line">/etc/nginx/scgi_params</div><div class="line">/etc/nginx/sites-available</div><div class="line">/etc/nginx/sites-enabled</div><div class="line">/etc/nginx/snippets</div><div class="line">/etc/nginx/uwsgi_params</div><div class="line">/etc/nginx/win-utf</div><div class="line">/etc/nginx/sites-available/default</div><div class="line">/etc/nginx/sites-enabled/default</div><div class="line">/etc/nginx/snippets/fastcgi-php.conf</div><div class="line">/etc/nginx/snippets/snakeoil.conf</div><div class="line">/etc/rc0.d/K01nginx</div><div class="line">/etc/rc1.d/K01nginx</div><div class="line">/etc/rc2.d/S02nginx</div><div class="line">/etc/rc3.d/S02nginx</div><div class="line">/etc/rc4.d/S02nginx</div><div class="line">/etc/rc5.d/S02nginx</div><div class="line">/etc/rc6.d/K01nginx</div><div class="line">/etc/systemd/system/multi-user.target.wants/nginx.service</div><div class="line">/etc/ufw/applications.d/nginx</div><div class="line">/lib/systemd/system/nginx.service</div><div class="line">/usr/sbin/nginx</div><div class="line">/usr/share/nginx</div><div class="line">/usr/share/apport/package-hooks/source_nginx.py</div><div class="line">/usr/share/doc/nginx</div><div class="line">/usr/share/doc/nginx-common</div><div class="line">/usr/share/doc/nginx-core</div><div class="line">/usr/share/doc/nginx/changelog.Debian.gz</div><div class="line">/usr/share/doc/nginx/copyright</div><div class="line">/usr/share/doc/nginx-common/NEWS.Debian.gz</div><div class="line">/usr/share/doc/nginx-common/README.Debian</div><div class="line">/usr/share/doc/nginx-common/changelog.Debian.gz</div><div class="line">/usr/share/doc/nginx-common/copyright</div><div class="line">/usr/share/doc/nginx-core/changelog.Debian.gz</div><div class="line">/usr/share/doc/nginx-core/copyright</div><div class="line">/usr/share/lintian/overrides/nginx-common</div><div class="line">/usr/share/lintian/overrides/nginx-core</div><div class="line">/usr/share/nginx/html</div><div class="line">/usr/share/nginx/html/index.html</div><div class="line">/usr/share/vim/addons/ftdetect/nginx.vim</div><div class="line">/usr/share/vim/addons/indent/nginx.vim</div><div class="line">/usr/share/vim/addons/syntax/nginx.vim</div><div class="line">/usr/share/vim/registry/nginx.yaml</div><div class="line">/var/cache/apt/archives/nginx-common_1.10.3-0ubuntu0.16.04.2_all.deb</div><div class="line">/var/cache/apt/archives/nginx-core_1.10.3-0ubuntu0.16.04.2_amd64.deb</div><div class="line">/var/cache/apt/archives/nginx_1.10.3-0ubuntu0.16.04.2_all.deb</div><div class="line">/var/lib/nginx</div><div class="line">/var/lib/dpkg/info/nginx-common.conffiles</div><div class="line">/var/lib/dpkg/info/nginx-common.config</div><div class="line">/var/lib/dpkg/info/nginx-common.list</div><div class="line">/var/lib/dpkg/info/nginx-common.md5sums</div><div class="line">/var/lib/dpkg/info/nginx-common.postinst</div><div class="line">/var/lib/dpkg/info/nginx-common.postrm</div><div class="line">/var/lib/dpkg/info/nginx-common.preinst</div><div class="line">/var/lib/dpkg/info/nginx-common.templates</div><div class="line">/var/lib/dpkg/info/nginx-core.list</div><div class="line">/var/lib/dpkg/info/nginx-core.md5sums</div><div class="line">/var/lib/dpkg/info/nginx-core.postinst</div><div class="line">/var/lib/dpkg/info/nginx-core.prerm</div><div class="line">/var/lib/dpkg/info/nginx.list</div><div class="line">/var/lib/dpkg/info/nginx.md5sums</div><div class="line">/var/lib/nginx/body</div><div class="line">/var/lib/nginx/fastcgi</div><div class="line">/var/lib/nginx/proxy</div><div class="line">/var/lib/nginx/scgi</div><div class="line">/var/lib/nginx/uwsgi</div><div class="line">/var/lib/systemd/deb-systemd-helper-enabled/nginx.service.dsh-also</div><div class="line">/var/lib/systemd/deb-systemd-helper-enabled/multi-user.target.wants/nginx.service</div><div class="line">/var/log/nginx</div><div class="line">/var/log/nginx/access.log</div><div class="line">/var/log/nginx/access.log.1</div><div class="line">/var/log/nginx/access.log.2.gz</div><div class="line">/var/log/nginx/error.log</div><div class="line">/var/www/html/index.nginx-debian.html</div><div class="line">ubuntu@VM-90-170-ubuntu:~$</div></pre></td></tr></table></figure>
+<p>可以看出</p>
+<p><code>/etc/nginx/nginx.conf</code> 文件是配置文件，查看其内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-90-170-ubuntu:/etc/nginx$ pwd</div><div class="line">/etc/nginx</div><div class="line">ubuntu@VM-90-170-ubuntu:/etc/nginx$ cat nginx.conf </div><div class="line">user www-data;</div><div class="line">worker_processes auto;</div><div class="line">pid /run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">	worker_connections 768;</div><div class="line">	# multi_accept on;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line"></div><div class="line">	##</div><div class="line">	# Basic Settings</div><div class="line">	##</div><div class="line"></div><div class="line">	sendfile on;</div><div class="line">	tcp_nopush on;</div><div class="line">	tcp_nodelay on;</div><div class="line">	keepalive_timeout 65;</div><div class="line">	types_hash_max_size 2048;</div><div class="line">	# server_tokens off;</div><div class="line"></div><div class="line">	# server_names_hash_bucket_size 64;</div><div class="line">	# server_name_in_redirect off;</div><div class="line"></div><div class="line">	include /etc/nginx/mime.types;</div><div class="line">	default_type application/octet-stream;</div><div class="line"></div><div class="line">	##</div><div class="line">	# SSL Settings</div><div class="line">	##</div><div class="line"></div><div class="line">	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE</div><div class="line">	ssl_prefer_server_ciphers on;</div><div class="line"></div><div class="line">	##</div><div class="line">	# Logging Settings</div><div class="line">	##</div><div class="line"></div><div class="line">	access_log /var/log/nginx/access.log;</div><div class="line">	error_log /var/log/nginx/error.log;</div><div class="line"></div><div class="line">	##</div><div class="line">	# Gzip Settings</div><div class="line">	##</div><div class="line"></div><div class="line">	gzip on;</div><div class="line">	gzip_disable &quot;msie6&quot;;</div><div class="line"></div><div class="line">	# gzip_vary on;</div><div class="line">	# gzip_proxied any;</div><div class="line">	# gzip_comp_level 6;</div><div class="line">	# gzip_buffers 16 8k;</div><div class="line">	# gzip_http_version 1.1;</div><div class="line">	# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</div><div class="line"></div><div class="line">	##</div><div class="line">	# Virtual Host Configs</div><div class="line">	##</div><div class="line"></div><div class="line">	include /etc/nginx/conf.d/*.conf;</div><div class="line">	include /etc/nginx/sites-enabled/*;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">#mail &#123;</div><div class="line">#	# See sample authentication script at:</div><div class="line">#	# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript</div><div class="line"># </div><div class="line">#	# auth_http localhost/auth.php;</div><div class="line">#	# pop3_capabilities &quot;TOP&quot; &quot;USER&quot;;</div><div class="line">#	# imap_capabilities &quot;IMAP4rev1&quot; &quot;UIDPLUS&quot;;</div><div class="line"># </div><div class="line">#	server &#123;</div><div class="line">#		listen     localhost:110;</div><div class="line">#		protocol   pop3;</div><div class="line">#		proxy      on;</div><div class="line">#	&#125;</div><div class="line"># </div><div class="line">#	server &#123;</div><div class="line">#		listen     localhost:143;</div><div class="line">#		protocol   imap;</div><div class="line">#		proxy      on;</div><div class="line">#	&#125;</div><div class="line">#&#125;</div><div class="line">ubuntu@VM-90-170-ubuntu:/etc/nginx$</div></pre></td></tr></table></figure>
+<p>看到http下有incluede</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">include /etc/nginx/conf.d/*.conf;</div><div class="line">include /etc/nginx/sites-enabled/*;</div></pre></td></tr></table></figure>
+<p>遂去探探究竟</p>
+<p>发现</p>
+<p><code>/etc/nginx/conf.d/</code> 文件夹下无内容</p>
+<p><code>/etc/nginx/sites-enabled/</code>有一个default文件，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-90-170-ubuntu:/etc/nginx/sites-enabled$ cat default </div><div class="line">##</div><div class="line"># You should look at the following URL&apos;s in order to grasp a solid understanding</div><div class="line"># of Nginx configuration files in order to fully unleash the power of Nginx.</div><div class="line"># http://wiki.nginx.org/Pitfalls</div><div class="line"># http://wiki.nginx.org/QuickStart</div><div class="line"># http://wiki.nginx.org/Configuration</div><div class="line">#</div><div class="line"># Generally, you will want to move this file somewhere, and start with a clean</div><div class="line"># file but keep this around for reference. Or just disable in sites-enabled.</div><div class="line">#</div><div class="line"># Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.</div><div class="line">##</div><div class="line"></div><div class="line"># Default server configuration</div><div class="line">#</div><div class="line">server &#123;</div><div class="line">	listen 80 default_server;</div><div class="line">	listen [::]:80 default_server;</div><div class="line"></div><div class="line">	# SSL configuration</div><div class="line">	#</div><div class="line">	# listen 443 ssl default_server;</div><div class="line">	# listen [::]:443 ssl default_server;</div><div class="line">	#</div><div class="line">	# Note: You should disable gzip for SSL traffic.</div><div class="line">	# See: https://bugs.debian.org/773332</div><div class="line">	#</div><div class="line">	# Read up on ssl_ciphers to ensure a secure configuration.</div><div class="line">	# See: https://bugs.debian.org/765782</div><div class="line">	#</div><div class="line">	# Self signed certs generated by the ssl-cert package</div><div class="line">	# Don&apos;t use them in a production server!</div><div class="line">	#</div><div class="line">	# include snippets/snakeoil.conf;</div><div class="line"></div><div class="line">	root /var/www/html;</div><div class="line"></div><div class="line">	# Add index.php to the list if you are using PHP</div><div class="line">	index index.html index.htm index.nginx-debian.html;</div><div class="line"></div><div class="line">	server_name _;</div><div class="line"></div><div class="line">	location / &#123;</div><div class="line">		# First attempt to serve request as file, then</div><div class="line">		# as directory, then fall back to displaying a 404.</div><div class="line">		try_files $uri $uri/ =404;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</div><div class="line">	#</div><div class="line">	#location ~ \.php$ &#123;</div><div class="line">	#	include snippets/fastcgi-php.conf;</div><div class="line">	#</div><div class="line">	#	# With php7.0-cgi alone:</div><div class="line">	#	fastcgi_pass 127.0.0.1:9000;</div><div class="line">	#	# With php7.0-fpm:</div><div class="line">	#	fastcgi_pass unix:/run/php/php7.0-fpm.sock;</div><div class="line">	#&#125;</div><div class="line"></div><div class="line">	# deny access to .htaccess files, if Apache&apos;s document root</div><div class="line">	# concurs with nginx&apos;s one</div><div class="line">	#</div><div class="line">	#location ~ /\.ht &#123;</div><div class="line">	#	deny all;</div><div class="line">	#&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"># Virtual Host configuration for example.com </div><div class="line"># 虚拟主机配置</div><div class="line">#</div><div class="line"># You can move that to a different file under sites-available/ and symlink that</div><div class="line"># to sites-enabled/ to enable it.</div><div class="line">#</div><div class="line">#server &#123;</div><div class="line">#	listen 80;</div><div class="line">#	listen [::]:80;</div><div class="line">#</div><div class="line">#	server_name example.com;</div><div class="line">#</div><div class="line">#	root /var/www/example.com;</div><div class="line">#	index index.html;</div><div class="line">#</div><div class="line">#	location / &#123;</div><div class="line">#		try_files $uri $uri/ =404;</div><div class="line">#	&#125;</div><div class="line">#&#125;</div></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="在default文件里添加虚拟主机，使能够反向代理"><a href="#在default文件里添加虚拟主机，使能够反向代理" class="headerlink" title="在default文件里添加虚拟主机，使能够反向代理"></a>在<code>default</code>文件里添加虚拟主机，使能够反向代理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">	listen       80;</div><div class="line">	server_name  tomcat.abc.com;</div><div class="line"></div><div class="line">	location / &#123;</div><div class="line">		proxy_pass http://127.0.0.1:8080;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>添加好了虚拟主机，重启nginx</p>
+<p>以下操作要使终端在<code>/etc/init.d/nginx</code>下执行</p>
+<p><strong>平滑的重启nginx</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
+<p><strong>快速的停止nginx</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nginx -s stop</div></pre></td></tr></table></figure>
+<p><strong>优雅的停止nginx</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nginx -s quit</div></pre></td></tr></table></figure>
+<p>首页的文件在<code>/var/www/html</code>文件夹下，自己可以更改</p>
+<p>下面是首页的默认内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-90-170-ubuntu:/var/www/html$ pwd</div><div class="line">/var/www/html</div><div class="line">ubuntu@VM-90-170-ubuntu:/var/www/html$ cat index.nginx-debian.html </div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Welcome to nginx!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    body &#123;</div><div class="line">        width: 35em;</div><div class="line">        margin: 0 auto;</div><div class="line">        font-family: Tahoma, Verdana, Arial, sans-serif;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to nginx!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>If you see this page, the nginx web server is successfully installed and</div><div class="line">working. Further configuration is required.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>For online documentation and support please refer to</div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://nginx.org/"</span>&gt;</span>nginx.org<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;<span class="name">br</span>/&gt;</span></div><div class="line">Commercial support is available at</div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://nginx.com/"</span>&gt;</span>nginx.com<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">em</span>&gt;</span>Thank you for using nginx.<span class="tag">&lt;/<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div><div class="line">ubuntu@VM-90-170-ubuntu:/var/www/html$</div></pre></td></tr></table></figure>
+<h3 id="反向代理前"><a href="#反向代理前" class="headerlink" title="反向代理前"></a>反向代理前</h3><p><img src="http://img.blog.csdn.net/20170922011512979?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VjdXJpbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="反向代理前"></p>
+<h3 id="反向代理后"><a href="#反向代理后" class="headerlink" title="反向代理后"></a>反向代理后</h3><p><img src="http://img.blog.csdn.net/20170922011318169?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VjdXJpbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="反向代理后"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.nginx.cn/doc/" target="_blank" rel="external">Nginx中文官方文档</a> </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>If you think the content is useful to you.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.jpg" alt="单凯 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="单凯 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/tags/服务器/" rel="tag"># 服务器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/09/Web安全初识/" rel="next" title="Web安全初识">
+                <i class="fa fa-chevron-left"></i> Web安全初识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="单凯" />
+          <p class="site-author-name" itemprop="name">单凯</p>
+           
+              <p class="site-description motion-element" itemprop="description">He wants himself to be more than just a programmer.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Cecurio" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/cecurio" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验环境"><span class="nav-number">1.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上述命令执行完，都干了什么？如何找到它的文件在哪呢？"><span class="nav-number">2.1.</span> <span class="nav-text">上述命令执行完，都干了什么？如何找到它的文件在哪呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在default文件里添加虚拟主机，使能够反向代理"><span class="nav-number">3.1.</span> <span class="nav-text">在default文件里添加虚拟主机，使能够反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向代理前"><span class="nav-number">3.2.</span> <span class="nav-text">反向代理前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向代理后"><span class="nav-number">3.3.</span> <span class="nav-text">反向代理后</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">单凯</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://cecurio.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/03/11/Nginx安装与简单使用/';
+          this.page.identifier = '2018/03/11/Nginx安装与简单使用/';
+          this.page.title = 'Nginx安装与简单使用';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cecurio.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
