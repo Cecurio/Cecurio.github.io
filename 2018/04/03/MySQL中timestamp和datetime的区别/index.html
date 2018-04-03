@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="随感," />
+  <meta name="keywords" content="MySQL," />
 
 
 
@@ -93,17 +93,21 @@
 
 
 
-<meta name="description" content="路要一步一步走，技术上的坑要一个一个填，技术上使劲折腾。">
-<meta name="keywords" content="随感">
+<meta name="description" content="之前在做项目的时候，有学长看到我设计数据库的时候时间存储用timestamp，他提醒我尽量不要用timestamp，而是选用datatime，当时没注意这个问题，今天我又遇到了这个问题，决定弄明白它。">
+<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="个人随感-01">
-<meta property="og:url" content="http://yoursite.com/2018/04/02/个人随感-01/index.html">
+<meta property="og:title" content="MySQL中timestamp和datetime的区别">
+<meta property="og:url" content="http://yoursite.com/2018/04/03/MySQL中timestamp和datetime的区别/index.html">
 <meta property="og:site_name" content="Cecurio">
-<meta property="og:description" content="路要一步一步走，技术上的坑要一个一个填，技术上使劲折腾。">
-<meta property="og:updated_time" content="2018-04-02T15:21:29.763Z">
+<meta property="og:description" content="之前在做项目的时候，有学长看到我设计数据库的时候时间存储用timestamp，他提醒我尽量不要用timestamp，而是选用datatime，当时没注意这个问题，今天我又遇到了这个问题，决定弄明白它。">
+<meta property="og:image" content="http://ot2mlpa9d.bkt.clouddn.com/MySQL%E4%B8%ADtimestamp%E5%92%8Cdatetime%E7%9A%84%E5%8C%BA%E5%88%AB/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E5%86%85%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA.png">
+<meta property="og:image" content="http://ot2mlpa9d.bkt.clouddn.com/MySQL%E4%B8%ADtimestamp%E5%92%8Cdatetime%E7%9A%84%E5%8C%BA%E5%88%AB/%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA%E7%9A%84%E8%BF%9E%E6%8E%A51.png">
+<meta property="og:image" content="http://ot2mlpa9d.bkt.clouddn.com/MySQL%E4%B8%ADtimestamp%E5%92%8Cdatetime%E7%9A%84%E5%8C%BA%E5%88%AB/%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA%E7%9A%84%E8%BF%9E%E6%8E%A52.png">
+<meta property="og:updated_time" content="2018-04-03T16:32:23.139Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人随感-01">
-<meta name="twitter:description" content="路要一步一步走，技术上的坑要一个一个填，技术上使劲折腾。">
+<meta name="twitter:title" content="MySQL中timestamp和datetime的区别">
+<meta name="twitter:description" content="之前在做项目的时候，有学长看到我设计数据库的时候时间存储用timestamp，他提醒我尽量不要用timestamp，而是选用datatime，当时没注意这个问题，今天我又遇到了这个问题，决定弄明白它。">
+<meta name="twitter:image" content="http://ot2mlpa9d.bkt.clouddn.com/MySQL%E4%B8%ADtimestamp%E5%92%8Cdatetime%E7%9A%84%E5%8C%BA%E5%88%AB/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E5%86%85%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA.png">
 
 
 
@@ -131,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/02/个人随感-01/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/03/MySQL中timestamp和datetime的区别/"/>
 
 
 
 
 
-  <title>个人随感-01 | Cecurio</title>
+  <title>MySQL中timestamp和datetime的区别 | Cecurio</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -267,7 +271,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/个人随感-01/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/MySQL中timestamp和datetime的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="单凯">
@@ -284,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">个人随感-01</h1>
+          <h1 class="post-title" itemprop="name headline">MySQL中timestamp和datetime的区别</h1>
         
 
         <div class="post-meta">
@@ -296,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T23:18:04+08:00">
-                2018-04-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T18:05:57+08:00">
+                2018-04-03
               </time>
             
 
@@ -315,9 +319,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/02/个人随感-01/#comments" itemprop="discussionUrl">
+                <a href="/2018/04/03/MySQL中timestamp和datetime的区别/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/02/个人随感-01/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/04/03/MySQL中timestamp和datetime的区别/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -347,17 +351,49 @@
       
 
       
-        <p>路要一步一步走，技术上的坑要一个一个填，技术上使劲折腾。</p>
+        <p>之前在做项目的时候，有学长看到我设计数据库的时候时间存储用timestamp，他提醒我尽量不要用timestamp，而是选用datatime，当时没注意这个问题，今天我又遇到了这个问题，决定弄明白它。</p>
 <a id="more"></a>
-<p>一个人开始废了的几个标志：</p>
-<p>1、喜欢待在短暂的舒适区，喜欢短暂的快乐，玩一局游戏，看一个抖音短视频，都可以让自己获得短暂的快乐刺激。这就导致了一个人不愿意深度思考，可能花半小时看两页英文文档会很痛苦。沉迷于短期快感、虚拟的满足感，不愿意做长期投入。</p>
-<p>2、一个人老去的标志，绝不是老成稳重、沉默寡言，而是不愿意尝试新鲜事物，不再愿意尝试失败的挫败感，不愿意将自己置身一块不熟悉的境地。（这里是指心老了）</p>
-<p>3、一个人老去的标志，做情绪的奴隶。不要让理智被情绪支配，一念天堂，一念地狱。</p>
-<p>有些人一年工作经验比有的人三五年经验还强，这是为什么？还是因为他喜欢折腾吧，学了很多别人没学过的东西，喜欢了解不熟悉的领域，他们能静下心来，一点点地去了解这个领域的东西。那些整天做基础CURD的人，代码中for循环就一层，if判断顶多2层，使用使用框架的API，如何获取技术提升。</p>
-<p>不要瞧不起业务，不了解业务，你怎么发现业务开发上的痛点、抽象出共性，没有这些你哪来的需求去做基础组件。在没有特别的业务挑战下（比如你是大学生），你可以去学习一些短期不会过时的东西啊，比如计算机基础，位运算，程序的机器级表示，网络方面的HTTP、HTTPS、TCP/IP协议，算法方面，数据检索，数据排序，树，索引，动态规划。比如你现在学习分布式，它肯定涉及网络的知识，比如你现在学习大数据，肯定涉及数据检索，数据排序，建立索引加快查找这些问题。</p>
-<p>牛人分为很多种，诚然，你熟悉JVM，熟悉Spring框架的运行原理，这是技术上的大牛，在底层技术上很牛。还有一种情况是别人提一个需求，一个业务场景，你有几种可行的解决方案，并能有理有据地选出最优方案，这也很牛啊。</p>
-<p>每天起床，告诉自己要变得更强。</p>
-<p>自古以来，大师挑选弟子，一看这个人的天赋，二看这个人的品行，所以做人还是正派义气一点，这样能走得更远。</p>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">timestamp</th>
+<th style="text-align:center">datetime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">存储所占的字节数</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">是否受时区影响</td>
+<td style="text-align:center">受影响</td>
+<td style="text-align:center">不受影响</td>
+</tr>
+<tr>
+<td style="text-align:center">表示的范围不同</td>
+<td style="text-align:center">不能早于1970年或晚于2037年</td>
+<td style="text-align:center">‘1000-01-01 00:00:00’到’9999-12-31 23:59:59’</td>
+</tr>
+<tr>
+<td style="text-align:center">存储格式</td>
+<td style="text-align:center">以UTC格式保存（it stores the number of milliseconds）</td>
+<td style="text-align:center">实际格式储存（Just stores what you have stored and retrieves the same thing which you have stored.）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>在某个数据库连接上修改时区</p>
+<p><img src="http://ot2mlpa9d.bkt.clouddn.com/MySQL%E4%B8%ADtimestamp%E5%92%8Cdatetime%E7%9A%84%E5%8C%BA%E5%88%AB/%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E5%86%85%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA.png" alt="在某个数据库连接上修改时区"></p>
+<p>在某个数据库连接上修改时区，不会影响其他的连接，下面继续验证</p>
+<p><img src="http://ot2mlpa9d.bkt.clouddn.com/MySQL%E4%B8%ADtimestamp%E5%92%8Cdatetime%E7%9A%84%E5%8C%BA%E5%88%AB/%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA%E7%9A%84%E8%BF%9E%E6%8E%A51.png" alt=""></p>
+<p>在数据库连接A中，修改时区为 <code>set time_zone=&#39;+9:00&#39;</code> (我处于东八区)</p>
+<p>接下来，另开一个数据库连接B，查看当前时间</p>
+<p><img src="http://ot2mlpa9d.bkt.clouddn.com/MySQL%E4%B8%ADtimestamp%E5%92%8Cdatetime%E7%9A%84%E5%8C%BA%E5%88%AB/%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA%E7%9A%84%E8%BF%9E%E6%8E%A52.png" alt=""></p>
+<p>可以看出，时间并没有变到东九区</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html" target="_blank" rel="external">MySQL time-zone-support</a></p>
+<p><a href="http://database.51cto.com/art/200905/124240.htm" target="_blank" rel="external">MySQL中的datetime与timestamp比较</a></p>
 
       
     </div>
@@ -408,7 +444,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/随感/" rel="tag"># 随感</a>
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
         </div>
       
@@ -421,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/28/Linux学习概述/" rel="next" title="Linux学习概述">
-                <i class="fa fa-chevron-left"></i> Linux学习概述
+              <a href="/2018/04/02/个人随感-01/" rel="next" title="个人随感-01">
+                <i class="fa fa-chevron-left"></i> 个人随感-01
               </a>
             
           </div>
@@ -430,10 +466,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/03/MySQL中timestamp和datetime的区别/" rel="prev" title="MySQL中timestamp和datetime的区别">
-                MySQL中timestamp和datetime的区别 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -487,8 +519,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -570,6 +611,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对比"><span class="nav-number">1.</span> <span class="nav-text">对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-number">2.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -727,9 +784,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/04/02/个人随感-01/';
-          this.page.identifier = '2018/04/02/个人随感-01/';
-          this.page.title = '个人随感-01';
+          this.page.url = 'http://yoursite.com/2018/04/03/MySQL中timestamp和datetime的区别/';
+          this.page.identifier = '2018/04/03/MySQL中timestamp和datetime的区别/';
+          this.page.title = 'MySQL中timestamp和datetime的区别';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://cecurio.disqus.com/embed.js';
